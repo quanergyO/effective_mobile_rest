@@ -4,7 +4,9 @@ import (
 	"effective_mobile_rest/internal/api/v1/service"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger"
+
+	_ "effective_mobile_rest/docs"
 )
 
 type Handler struct {

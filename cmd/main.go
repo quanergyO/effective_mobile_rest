@@ -17,6 +17,11 @@ import (
 	"syscall"
 )
 
+// @title Effective Mobile REST API
+// @version 1.0
+// @description This is the RESTful API for Effective Mobile.
+// @host localhost:8081
+// @BasePath /api/v1
 func main() {
 	if err := initConfig(); err != nil {
 		log.Fatal("Error: init config", err)

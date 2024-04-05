@@ -13,6 +13,16 @@ import (
 	"sync"
 )
 
+// @Summary Create cars
+// @Description Create cars based on given registration numbers
+// @Tags Cars
+// @Accept json
+// @Produce json
+// @Param regNums body []string true "Array of registration numbers"
+// @Success 200 {object} map[string]interface{} "status": "ok"
+// @Failure 400 {object} response.errorResponse
+// @Failure 500 {object} response.errorResponse
+// @Router /cars [post]
 func (h *Handler) createCars(c *gin.Context) {
 	var req types.CreateCar
 	if err := c.BindJSON(&req); err != nil {
@@ -55,6 +65,16 @@ func (h *Handler) createCars(c *gin.Context) {
 	})
 }
 
+// @Summary Delete car by ID
+// @Description Delete car by its ID
+// @Tags Cars
+// @Accept json
+// @Produce json
+// @Param id path int true "Car ID"
+// @Success 200 {object} map[string]interface{} "status": "ok"
+// @Failure 400 {object} response.errorResponse
+// @Failure 500 {object} response.errorResponse
+// @Router /cars/{id} [delete]
 func (h *Handler) deleteCarById(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -74,6 +94,17 @@ func (h *Handler) deleteCarById(c *gin.Context) {
 	})
 }
 
+// @Summary Get all cars
+// @Description Get all cars with optional pagination
+// @Tags Cars
+// @Accept json
+// @Produce json
+// @Param limit query int false "Limit number of cars to retrieve"
+// @Param offset query int false "Offset for pagination"
+// @Success 200 {object} map[string]interface{} "Data": "array of cars"
+// @Failure 400 {object} response.errorResponse
+// @Failure 500 {object} response.errorResponse
+// @Router /cars [get]
 func (h *Handler) getAllCars(c *gin.Context) {
 	limitParam := c.DefaultQuery("limit", "1000")
 	offsetParam := c.DefaultQuery("offset", "0")
@@ -102,6 +133,17 @@ func (h *Handler) getAllCars(c *gin.Context) {
 	})
 }
 
+// @Summary Update car by ID
+// @Description Update car information by its ID
+// @Tags Cars
+// @Accept json
+// @Produce json
+// @Param id path int true "Car ID"
+// @Param newCarData body types.UpdateCar true "New car data"
+// @Success 200 {object} map[string]interface{} "status": "ok"
+// @Failure 400 {object} response.errorResponse
+// @Failure 500 {object} response.errorResponse
+// @Router /cars/{id} [put]
 func (h *Handler) updateCar(c *gin.Context) {
 	var newCarData types.UpdateCar
 	if err := c.BindJSON(&newCarData); err != nil {

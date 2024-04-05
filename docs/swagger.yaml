@@ -1,0 +1,156 @@
+basePath: /api/v1
+definitions:
+  response.errorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  types.UpdateCar:
+    properties:
+      mark:
+        type: string
+      model:
+        type: string
+      regNum:
+        type: string
+      year:
+        type: integer
+    type: object
+host: localhost:8081
+info:
+  contact: {}
+  description: This is the RESTful API for Effective Mobile.
+  title: Effective Mobile REST API
+  version: "1.0"
+paths:
+  /cars:
+    get:
+      consumes:
+      - application/json
+      description: Get all cars with optional pagination
+      parameters:
+      - description: Limit number of cars to retrieve
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'Data": "array of cars'
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      summary: Get all cars
+      tags:
+      - Cars
+    post:
+      consumes:
+      - application/json
+      description: Create cars based on given registration numbers
+      parameters:
+      - description: Array of registration numbers
+        in: body
+        name: regNums
+        required: true
+        schema:
+          items:
+            type: string
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'status": "ok'
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      summary: Create cars
+      tags:
+      - Cars
+  /cars/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete car by its ID
+      parameters:
+      - description: Car ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'status": "ok'
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      summary: Delete car by ID
+      tags:
+      - Cars
+    put:
+      consumes:
+      - application/json
+      description: Update car information by its ID
+      parameters:
+      - description: Car ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: New car data
+        in: body
+        name: newCarData
+        required: true
+        schema:
+          $ref: '#/definitions/types.UpdateCar'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'status": "ok'
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      summary: Update car by ID
+      tags:
+      - Cars
+swagger: "2.0"
