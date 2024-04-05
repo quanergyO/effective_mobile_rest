@@ -1,3 +1,3 @@
-DROP TABLE people;
-
 DROP TABLE cars;
+
+DROP TABLE people;

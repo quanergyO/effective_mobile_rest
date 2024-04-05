@@ -41,7 +41,7 @@ func main() {
 	})
 
 	if err != nil {
-		log.Fatal("Error: failed to init db connection", err)
+		log.Fatal("Error: failed to init db connection ", err)
 	}
 
 	repos := repository.NewRepository(db)
